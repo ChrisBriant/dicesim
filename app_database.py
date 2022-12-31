@@ -114,7 +114,7 @@ class Database:
         #     WHERE roll_session_id = '{roll_id}' 
         #     AND die_one_result + die_two_result = 5 '''
         print('Number of Rolls', no_of_rolls, '\n')
-        rolls = {}
+        rolls = []
         for i in range(2,13):
             sql = f''' SELECT COUNT(die_one_result + die_two_result) as total 
             FROM roll  
@@ -123,7 +123,8 @@ class Database:
             cur = self.conn.cursor()
             cur.execute(sql)
             rows = cur.fetchall()
-            rolls[i] = { 'rolls' : rows[0][0], 'percent' : round((100 / rows[0][0]) * 100,2) }
-        #rolls_sorted = rolls.sort(rolls, key=itemgetter('percent')) 
-        return rolls
+            rolls.append({'dice_no': i, 'rolls' : rows[0][0], 'percent' : round((100 / rows[0][0]) * 100,2) })
+        rolls_sorted = sorted(rolls, key=lambda d: d['percent'])
+        #The [::-1] reverses the list
+        return rolls_sorted[::-1]
 

@@ -40,8 +40,8 @@ def manage_sessions():
     no_of_rolls = sessions[int(selected_id)]['rolls']
     rolls = db.get_rolls(session_id,no_of_rolls)
     print('Dice Result:' +'\t', 'ROLLS:'+'\t\t','Percentage Rolled:'+'\t\n')
-    for k in rolls.keys():
-        print(f'''{k}\t\t{rolls[k]['rolls']}\t\t{rolls[k]['percent']}\t\t\n''')
+    for roll in rolls:
+        print(f'''{roll['dice_no']}\t\t{roll['rolls']}\t\t{roll['percent']}\t\t\n''')
 
 def main ():
     args = sys.argv

@@ -6,7 +6,7 @@
 
 To run a simulation and store in the database:
 
-python3 main.py runsim <optional number of iterations>
+python3 main.py runsim _optional-number-of-iterations_
 
 To select a simulation to view the stats:
 
