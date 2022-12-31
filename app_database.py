@@ -65,54 +65,6 @@ class Database:
         return sessions
 
     def get_rolls(self, roll_id,no_of_rolls):
-        sql2 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 2 '''
-        sql3 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 3 '''
-        sql4 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 4 '''
-        sql5 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 5 '''
-        sql6 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 6 '''
-        sql7 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 7 '''
-        sql8 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 8 '''
-        sql9 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 9 '''
-        sql10 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 10 '''
-        sql11 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 11 '''
-        sql12 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-            FROM roll  
-            WHERE roll_session_id = '{roll_id}' 
-            AND die_one_result + die_two_result = 12 '''
-        # sql9 = f''' SELECT COUNT(die_one_result + die_two_result) as total12 
-        #     FROM roll  
-        #     WHERE roll_session_id = '{roll_id}' 
-        #     AND die_one_result + die_two_result = 5 '''
         print('Number of Rolls', no_of_rolls, '\n')
         rolls = []
         for i in range(2,13):
@@ -123,7 +75,7 @@ class Database:
             cur = self.conn.cursor()
             cur.execute(sql)
             rows = cur.fetchall()
-            rolls.append({'dice_no': i, 'rolls' : rows[0][0], 'percent' : round((100 / rows[0][0]) * 100,2) })
+            rolls.append({'dice_no': i, 'rolls' : rows[0][0], 'percent' : round((rows[0][0] / no_of_rolls) * 100,2) })
         rolls_sorted = sorted(rolls, key=lambda d: d['percent'])
         #The [::-1] reverses the list
         return rolls_sorted[::-1]
